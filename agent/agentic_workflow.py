@@ -14,10 +14,11 @@ class GraphBuilder():
     def __init__(self):
         self.tools = []
         self.system_prompt = SYSTEM_PROMPT
+        self.llm_with_tools = None
 
     def agent_functions(self, state:MessagesState):
         """Main agent function"""
-        
+
         user_question = state["messages"]
         input_question = [self.system_prompt] + user_question
         response = self.llm_with_tools.invoke(input_question)
