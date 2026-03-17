@@ -8,9 +8,9 @@ from dotenv import load_dotenv
 class PlaceSearchTool:
     def __init__(self):
         load_dotenv()
-        self.google_api_key = os.environ.get['GPLACES_API_KEY']
+        self.google_api_key = os.environ.get('GPLACES_API_KEY')
         self.google_places_search = GooglePlaceSearchTool(self.google_api_key)
-        self.tavily_search = TavilyPlaceSearchTool()
+        # self.tavily_search = TavilyPlaceSearchTool()
         self.place_search_tool_list = self._setup_tools()
 
     def _setup_tools(self):
@@ -23,8 +23,9 @@ class PlaceSearchTool:
                 if attraction_result:
                     return f"Following are the attractions of {place} as suggested by google: {attraction_result}"
             except Exception as e:
-                tavily_result = self.tavily_search.tavily_search_attractions(place)
-                return f"Google cannot find the details due to {e}. \n Following are the attractions of {place}: {tavily_result}"
+                # tavily_result = self.tavily_search.tavily_search_attractions(place)
+                # return f"Google cannot find the details due to {e}. \n Following are the attractions of {place}: {tavily_result}"
+                return e
 
         @tool
         def search_restaurants(place: str) -> str:
@@ -34,8 +35,9 @@ class PlaceSearchTool:
                 if restaurants_result:
                     return f"Following are the top restaurants of {place} as suggested by google: {restaurants_result}"
             except Exception as e:
-                tavily_result = self.tavily_search.tavily_search_restaurants(place)
-                return f"Google cannot find the details due to {e}. \n Following are the top restaurants of {place}: {tavily_result}" 
+                # tavily_result = self.tavily_search.tavily_search_restaurants(place)
+                # return f"Google cannot find the details due to {e}. \n Following are the top restaurants of {place}: {tavily_result}" 
+                return e
         @tool
         def search_transportation(place:str) -> str:
             """Search transportation of a place"""
@@ -44,8 +46,9 @@ class PlaceSearchTool:
                 if transportation_result:
                     return f"Following are the modes of transportation available in {place} as suggested by google: {transportation_result}"
             except Exception as e:
-                tavily_result = self.tavily_search.tavily_search_transportation(place)
-                return f"Google cannot find the details due to {e}. \nFollowing are the modes of transportation available in {place}: {tavily_result}"
+                # tavily_result = self.tavily_search.tavily_search_transportation(place)
+                # return f"Google cannot find the details due to {e}. \nFollowing are the modes of transportation available in {place}: {tavily_result}"
+                return e
         @tool
         def search_activites(place: str) -> str:
             """Search activities of a place"""
@@ -54,7 +57,8 @@ class PlaceSearchTool:
                 if activities_result:
                     return f"Following are the activities of {place} as suggested by google: {activities_result}"
             except Exception as e:
-                tavily_result = self.tavily_search.tavily_search_activity(place)
-                return f"Google cannot find the details due to {e}. \n Following are the activities of {place}: {tavily_result}" 
+                # tavily_result = self.tavily_search.tavily_search_activity(place)
+                # return f"Google cannot find the details due to {e}. \n Following are the activities of {place}: {tavily_result}" 
+                return e
         return [search_attractions, search_restaurants, search_activites, search_transportation]
         
